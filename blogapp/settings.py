@@ -110,6 +110,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+LOGIN_REDIRECT_URL = 'Home-page'
+
 STATIC_URL = "static/"
 
 # Default primary key field type
