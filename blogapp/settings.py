@@ -110,7 +110,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-LOGIN_REDIRECT_URL = 'Home-page'
+LOGIN_REDIRECT_URL = 'Home-page'   # REDIRECTS TO LOGIN PAGE IF CREDIANTIALS MATCHES 
+LOGOUT_REDIRECT_URL = 'users-login'   # redirect to home page as you log out
+
 
 STATIC_URL = "static/"
 
