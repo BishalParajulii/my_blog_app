@@ -5,23 +5,32 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
 <div class="container">
-    <div class="row mt-5 pt-5">
-        <div class="col-md-5 offset-md-3">
-            <div class="card shadow my-3">
-                <div class="card-body">
-                    <h4>Sign Up Page</h4>
+    <div class="row justify-content-center mt-5 pt-5">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg my-3">
+                <div class="card-body p-4">
+                    <h4 class="text-center mb-4">Create an Account</h4>
                     <hr>
 
-                    <form method="POST">
+                    <form method="POST" autocomplete="off">
                         {% csrf_token %}
                         {{ form|crispy }}
-                        <input type="submit" class="btn btn-primary" value="sign Up">
+
+                        <!-- Sign Up Button in the Center -->
+                        <div class="text-center mt-4">
+                            <input type="submit" class="btn btn-primary btn-block" value="Sign Up">
+                        </div>
                     </form>
+
+                    <!-- Already have an account? Sign In button -->
+                    <div class="text-center mt-3">
+                        Already have an account? 
+                        <a href="{% url 'users-login' %}" class="btn btn-outline-primary">Sign In</a>
+                    </div>
                 </div>
             </div>
-        </div>  
+        </div>
+    </div>
 </div>
-
 {% endblock %}
