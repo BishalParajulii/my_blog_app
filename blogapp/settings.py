@@ -98,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Kathmandu"
 
 USE_I18N = True
 
@@ -115,6 +115,12 @@ LOGOUT_REDIRECT_URL = 'users-login'   # redirect to home page as you log out
 
 
 STATIC_URL = "static/"
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT =  (BASE_DIR / 'media')
+
+STATIC_ROOT = (BASE_DIR / 'asset' )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

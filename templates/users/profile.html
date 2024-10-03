@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center mt-5 pt-5">
-        <div class="col-md-6 col-lg-5">
+        <div class="col-md-6 col-lg-6">
             <div class="card card-body shadow">
                 <span class="h4"> Profile Page
                     <button type="button" class="btn btn-info btn-sm float-right" data-toggle="modal" data-target="#exampleModal">
@@ -18,11 +18,11 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="" alt="img">
+                        <img class="img-thumbnail" src="{{ user.profilemodel.image.url }}" alt="img">
                     </div>
                     <div class="col-md-8">
-                        <h4>Name : Bishal <h4>
-                        <h4>Email : parajulibishal00@gmail.com <h4>    
+                        <h4>Name : {{ user.username }} <h4>
+                        <h4>Email : {{ user.email }} <h4>    
                     </div>
                 </div>
 

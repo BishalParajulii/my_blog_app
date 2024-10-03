@@ -11,7 +11,7 @@ def sign_up(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('Home-page')
+            return redirect('users-login')
     else:
         form = SignUpForm()
 

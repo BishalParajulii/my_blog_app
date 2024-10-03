@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator
 # Create your models here.
 class ProfileModel(models.Model):
     user = models.OneToOneField(User , on_delete=models.CASCADE)
-    image = models.ImageField(default = 'default.png' , upload_to = 'profile' , validators=[FileExtensionValidator(['jpg' , 'png' , 'jpeg'])])
+    image = models.ImageField(default = 'profile/default.jpeg' , upload_to = 'profile' , validators=[FileExtensionValidator(['jpg' , 'png' , 'jpeg' , 'webp'])])
 
     def __str__(self):
         return self.user.username
