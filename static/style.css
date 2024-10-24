@@ -1,0 +1,152 @@
+/* General styles */
+body {
+    background: url('/media/bg.jpg') no-repeat center center fixed; /* Ensures the image is centered and doesn't repeat */
+    background-size: cover; /* Ensures the image covers the entire background */
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Fallback background color */
+    color: #333;
+}
+
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Navbar Styles - Ultra Compact */
+.navbar {
+    background-color: #007bff;
+    padding: 0px 15px; /* Keep minimal padding for compact look */
+    height: 50px; /* Set a fixed height for the navbar */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+/* Navbar brand (logo/title) */
+.navbar-brand {
+    font-size: 1.2rem;
+    padding: 0;
+    margin-right: 20px; /* Spacing between brand and links */
+    line-height: 50px; /* Match the line height to navbar height */
+}
+
+/* Navbar links */
+.nav-link {
+    color: #fff !important;
+    padding: 0px 10px; /* Very minimal padding */
+    font-size: 0.9rem;
+    line-height: 50px; /* Match line height for vertical alignment */
+}
+
+.nav-link:hover {
+    background-color: #0056b3;
+    border-radius: 5px;
+}
+
+/* Align Profile and Logout button on the right */
+.navbar-nav.ml-auto {
+    margin-left: auto; /* Push profile and logout to the right */
+}
+
+.nav-item {
+    display: flex;
+    align-items: center; /* Ensure all nav-items are vertically centered */
+}
+
+/* Navbar Toggler (for mobile view) */
+.navbar-toggler {
+    padding: 5px 10px;
+}
+
+/* Profile and Logout button alignment fix */
+.navbar-nav .nav-item:last-child {
+    margin-right: 0; /* Remove margin from the last item (Logout button) */
+}
+
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Post Section */
+.card img {
+    border-radius: 8px;
+}
+
+h3 {
+    color: #007bff;
+}
+
+h3:hover {
+    text-decoration: underline;
+}
+
+.text-justify {
+    line-height: 1.6;
+}
+
+/* Form Styles */
+input[type="submit"] {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+input[type="text"], input[type="email"], textarea {
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #007bff;
+    padding: 20px 0;
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    input[type="submit"] {
+        font-size: 16px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+}

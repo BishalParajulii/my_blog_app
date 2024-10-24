@@ -128,3 +128,8 @@ STATIC_ROOT = (BASE_DIR / 'asset' )
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CSRF_COOKIE_SECURE = False
+
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]

@@ -6,14 +6,14 @@
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-center mt-5 pt-5">
+    <div class="row justify-content-center mt-3 pt-3"> <!-- Reduced margin-top and padding-top -->
         <div class="col-md-6 col-lg-5">
             <div class="card shadow-lg my-3">
                 <div class="card-body p-4">
                     <h4 class="text-center mb-4">Create an Account</h4>
                     <hr>
 
-                    <form method="POST" autocomplete="off">
+                    <form method="POST" autocomplete="off" class="form">
                         {% csrf_token %}
                         {{ form|crispy }}
 
