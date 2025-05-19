@@ -1,17 +1,27 @@
+# models.py
+
 from django.db import models
-from django.contrib.auth.models import User  #all the user names 
-from django.db.models import CASCADE
+from django.contrib.auth.models import User
 
-
-# Create your models here.
 class PostModel(models.Model):
-    title = models.CharField(max_length=100)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
     content = models.TextField()
-    author = models.ForeignKey(User , on_delete=CASCADE)  #user ID 
     date_created = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        ordering = ['-date_created' , ]    #to order latest post at top
+    def total_likes(self):
+        return self.likes.count() + self.anonymous_likes.count()
 
-    def __str__(self):
-        return self.title
+# class Like(models.Model):
+#     post = models.ForeignKey(PostModel, related_name='likes', on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+#     class Meta:
+#         unique_together = ('post', 'user')
+
+# class AnonymousLike(models.Model):
+#     post = models.ForeignKey(PostModel, related_name='anonymous_likes', on_delete=models.CASCADE)
+#     session_key = models.CharField(max_length=100)
+
+#     class Meta:
+#         unique_together = ('post', 'session_key')

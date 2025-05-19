@@ -1,69 +1,296 @@
-{% extends 'partials/base.html' %}
+    {% extends 'partials/base.html' %}
 
-{% block title %} Home Page {% endblock %}
+    {% block title %} Home Page {% endblock %}
 
-{% load crispy_forms_tags %}
+    {% load crispy_forms_tags %}
 
-{% block content %}
+    {% block content %}
 
-<div class="container mt-5 pt-5">
-    <div class="row">
-        {% if request.user.is_authenticated %}
-        <!-- Form Section for Authenticated Users -->
-        <div class="col-md-4">
-            <div class="card shadow my-3">
-                <div class="card-body">
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        <input type="submit" class="btn btn-primary" value="POST">
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <!-- Posts Section for Authenticated Users -->
-            {% for post in posts %}
-            <div class="card shadow my-3">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <img src="{{ post.author.profilemodel.image.url }}" alt="img" class="img-fluid" style="max-height: 150px; max-width: 100%; object-fit: cover;">
-                        </div>
-                        <div class="col-md-9">
-                            <small>{{ post.date_created }}</small>
-                            <hr>
-                            <a class="h3" href="#">{{ post.title }}</a>
-                            <p class="text-justify my-3">{{ post.content }}</p>
-                        </div>
+    <style>
+        :root {
+            --dark-blue: #0a1f44;
+            --primary-blue: #1a3b7a;
+            --accent-yellow: #ffd700;
+            --light-yellow: #fff9d6;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+        }
+        
+        .bg-dark-blue {
+            background-color: var(--dark-blue);
+        }
+        
+        .bg-primary-blue {
+            background-color: var(--primary-blue);
+        }
+        
+        .bg-accent-yellow {
+            background-color: var(--accent-yellow);
+        }
+        
+        .bg-light-yellow {
+            background-color: var(--light-yellow);
+        }
+        
+        .text-dark-blue {
+            color: var(--dark-blue);
+        }
+        
+        .text-accent-yellow {
+            color: var(--accent-yellow);
+        }
+        
+        .btn-primary-blue {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary-blue:hover {
+            background-color: var(--dark-blue);
+            color: var(--accent-yellow);
+        }
+        
+        .btn-accent-yellow {
+            background-color: var(--accent-yellow);
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+        
+        .btn-accent-yellow:hover {
+            background-color: #e6c200;
+            color: var(--dark-blue);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(10, 31, 68, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(10, 31, 68, 0.15);
+        }
+        
+        .card-header {
+            background-color: var(--primary-blue);
+            color: white;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 12px 20px;
+        }
+        
+        .post-card {
+            border-left: 4px solid var(--accent-yellow);
+        }
+        
+        .post-date {
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+        
+        .post-title {
+            color: var(--dark-blue);
+            transition: color 0.2s ease;
+        }
+        
+        .post-title:hover {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+        
+        .post-content {
+            color: #495057;
+            line-height: 1.6;
+        }
+        
+        .author-img {
+            width: 100%;
+            max-width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 3px solid var(--accent-yellow);
+        }
+        
+        .divider {
+            border-top: 1px solid rgba(10, 31, 68, 0.1);
+            margin: 15px 0;
+        }
+        
+        .form-control:focus {
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+        }
+
+        /* Like/comment specific styles */
+        .like-btn {
+            transition: all 0.3s;
+        }
+        .like-btn:hover {
+            transform: scale(1.1);
+        }
+        .liked {
+            color: #dc3545 !important;
+        }
+        .comment-box {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .comment-item {
+            border-left: 3px solid var(--accent-yellow);
+            padding-left: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <div class="container py-4">
+        <div class="row">
+            {% if request.user.is_authenticated %}
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-pen-fancy mr-2"></i>Create New Post</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button type="submit" class="btn btn-accent-yellow btn-block mt-3 py-2">
+                                <i class="fas fa-paper-plane mr-2"></i>POST
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <!-- Posts Section for Non-Authenticated Users -->
-        <div class="col-md-12">
-            {% for post in posts %}
-            <div class="card shadow my-3">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <img src="" alt="img" class="img-fluid" style="max-height: 150px; max-width: 100%; object-fit: cover;">
-                        </div>
-                        <div class="col-md-9">
-                            <small>{{ post.date_created }}</small>
-                            <hr>
-                            <a class="h3" href="#">{{ post.title }}</a>
-                            <p class="text-justify my-3">{{ post.content }}</p>
+            {% endif %}
+
+            <div class="{% if request.user.is_authenticated %}col-lg-8{% else %}col-12{% endif %}">
+                <h3 class="text-dark-blue mb-4"><i class="fas fa-stream mr-2"></i>Recent Posts</h3>
+                {% for post in posts %}
+                <div class="card post-card mb-4" id="post-{{ post.id }}">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <img src="{{ post.author.profilemodel.image.url }}" class="author-img mb-3">
+                                <h6 class="mb-0">{{ post.author.username }}</h6>
+                            </div>
+                            <div class="col-md-9">
+                                <small class="post-date"><i class="far fa-clock mr-1"></i>{{ post.date_created }}</small>
+                                <div class="divider"></div>
+                                <a class="h4 post-title d-block mb-3" href="#">{{ post.title }}</a>
+                                <p class="post-content">{{ post.content }}</p>
+
+                                <!-- Like section -->
+                                <div class="d-flex align-items-center mb-3">
+                                    <button class="btn btn-sm like-btn {% if request.user in post.likes.all %}liked{% endif %}"
+                                        {% if request.user.is_authenticated %}
+                                            onclick="likePost({{ post.id }})"
+                                        {% else %}
+                                            onclick="alert('Please log in to like this post.')"
+                                            disabled
+                                        {% endif %}>
+                                        <i class="fas fa-heart mr-1"></i>
+                                        <span class="like-count">{{ post.likes.count }}</span>
+                                    </button>
+                                    <span class="ml-3 text-muted">
+                                        <i class="fas fa-comment mr-1"></i>
+                                        <span class="comment-count">{{ post.comments.count }}</span> comments
+                                    </span>
+                                </div>
+
+                                <!-- Comment section -->
+                                <div class="mt-3">
+                                    {% if request.user.is_authenticated %}
+                                    <form class="comment-form mb-3" data-post-id="{{ post.id }}">
+                                        {% csrf_token %}
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Write a comment..." required>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-accent-yellow" type="submit">Post</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    {% else %}
+                                    {% comment %} <div class="alert alert-info">
+                                        <i class="fas fa-sign-in-alt mr-2"></i><a href="{% url 'users-login' %}">Login to comment</a>
+                                    </div> {% endcomment %}
+                                    {% endif %}
+
+                                    <div class="comment-box">
+                                        {% for comment in post.comments.all %}
+                                        <div class="comment-item mb-2">
+                                            <strong>{{ comment.user.username }}</strong>
+                                            <small class="text-muted ml-2">{{ comment.created_at|timesince }} ago</small>
+                                            <p class="mb-0">{{ comment.text }}</p>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
-        {% endif %}
     </div>
-</div>
 
-{% endblock %}
+    <script>
+        // Get CSRF token from the first form input
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+
+        function likePost(postId) {
+            fetch(`/like/${postId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin'
+            })
+            .then(res => res.json())
+            .then(data => {
+                const postElement = document.getElementById(`post-${postId}`);
+                const likeBtn = postElement.querySelector('.like-btn');
+                const likeCount = postElement.querySelector('.like-count');
+                if (data.liked) {
+                    likeBtn.classList.add('liked');
+                } else {
+                    likeBtn.classList.remove('liked');
+                }
+                likeCount.textContent = data.total_likes;
+            });
+        }
+
+        // Comment form submission
+        document.querySelectorAll('.comment-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const postId = this.dataset.postId;
+                const input = this.querySelector('input');
+                const commentBox = this.closest('.card-body').querySelector('.comment-box');
+                const commentCount = this.closest('.card-body').querySelector('.comment-count');
+
+                fetch(`/comment/${postId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `text=${encodeURIComponent(input.value)}`
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const newComment = document.createElement('div');
+                    newComment.className = 'comment-item mb-2';
+                    newComment.innerHTML = `<strong>${data.user}</strong> <small class="text-muted ml-2">just now</small><p class="mb-0">${data.text}</p>`;
+                    commentBox.prepend(newComment);
+                    commentCount.textContent = parseInt(commentCount.textContent) + 1;
+                    input.value = '';
+                });
+            });
+        });
+    </script>
+    {% endblock %}
